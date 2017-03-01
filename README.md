@@ -2,7 +2,7 @@
 
 A simple CLI tool for Encrypt/Decrypt files. Using 256-bit AES-GCM.
 
-### Usage
+## Usage
 
 Encrypt (automatically generated a encryption key)
 
@@ -23,12 +23,23 @@ Usage of dec:
   -key string
     	Specify a key for decrypting.
 ```
-### Build
+## Build
 
 ```
 $ go build hermescrypt.go cryptobox.go
 ```
 
-### Example
-./hermescrypt enc -f=mysecret
-./hermescrypt dec -f=mysecretEnc -key=3ejnUzswPQm9tiZ47EKTCQoGK4h03uK7heutnhYI14Q=
+### Make It Runnable from the Command-Line
+After created an executable file, `hermescrypt`. Copy `hermescrypt` to `/usr/local/bin`.
+
+```
+$ cp hermescrypt /usr/local/bin
+```
+
+## Example
+
+```
+$ ./hermescrypt enc -f=mysecret
+
+$ ./hermescrypt dec -f=mysecretEnc -key=3ejnUzswPQm9tiZ47EKTCQoGK4h03uK7heutnhYI14Q=
+```
