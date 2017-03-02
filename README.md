@@ -4,7 +4,7 @@ A simple CLI tool for Encrypt/Decrypt files. Using 256-bit AES-GCM.
 
 ## Usage
 
-Encrypt (automatically generated a encryption key)
+Encrypt (automatically generated an encryption key)
 
 ```
 $ ./hermescrypt enc --help
