@@ -2,6 +2,7 @@ package main
 
 import (
 	b64 "encoding/base64"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -15,6 +16,19 @@ func check(e error) {
 }
 
 func main() {
+
+	type Configuration struct {
+		Bucket string
+		Region string
+	}
+
+	awsConffile, _ := os.Open("config/awsS3Conf.json")
+	decoder := json.NewDecoder(awsConffile)
+	configuration := Configuration{}
+	err := decoder.Decode(&configuration)
+	check(err)
+	bucketName := configuration.Bucket
+	region := configuration.Region
 
 	// Subcommands
 	encCommand := flag.NewFlagSet("enc", flag.ExitOnError)
@@ -108,14 +122,9 @@ func main() {
 
 	}
 	if listCommand.Parsed() {
-		bucketName := "hermescrypt-secretbucket"
-		region := "ap-northeast-1"
 		ListBucketObject(bucketName, region)
 	}
 	if pushCommand.Parsed() {
-		bucketName := "hermescrypt-secretbucket"
-		region := "ap-northeast-1"
-
 		if len(os.Args[2:]) < 2 {
 			fmt.Println("No such file or directory")
 			os.Exit(1)
@@ -144,9 +153,6 @@ func main() {
 		fmt.Printf("upload: %s to s3://%s/%s\n", localFilename, bucketName, remoteFilename)
 	}
 	if pullCommand.Parsed() {
-		bucketName := "hermescrypt-secretbucket"
-		region := "ap-northeast-1"
-		flag.Args()
 
 		if len(os.Args[2:]) < 1 {
 			fmt.Println("No such file or directory")
