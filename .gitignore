@@ -1,0 +1,3 @@
+.DS_Store
+crypt
+config/awsS3Conf.json
